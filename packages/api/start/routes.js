@@ -6,4 +6,6 @@ Route.group(() => {
   Route.resource('/students', 'StudentController').apiOnly();
 
   Route.resource('/plans', 'PlanController').apiOnly();
+
+  Route.resource('/registrations', 'RegistrationController').apiOnly();
 }).middleware('auth');
