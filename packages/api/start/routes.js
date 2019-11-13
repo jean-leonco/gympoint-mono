@@ -2,4 +2,6 @@ const Route = use('Route');
 
 Route.post('/sessions', 'SessionController.store');
 
-Route.resource('/students', 'StudentController').apiOnly();
+Route.group(() => {
+  Route.resource('/students', 'StudentController').apiOnly();
+}).middleware('auth');
