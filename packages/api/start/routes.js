@@ -3,7 +3,12 @@ const Route = use('Route');
 Route.post('sessions', 'SessionController.store');
 
 Route.group(() => {
-  Route.resource('students', 'StudentController').apiOnly();
+  Route.resource('students', 'StudentController')
+    .apiOnly()
+    .validator(new Map([
+      [['students.store'], ['StoreStudent']],
+      [['students.update'], ['UpdateStudent']],
+    ]));
 
   Route.resource('students.checkins', 'CheckinController').only(['index', 'store']);
   Route.resource('students.assistance-requests', 'AssistanceRequestController').only(['index', 'store']);
