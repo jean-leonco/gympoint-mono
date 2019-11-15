@@ -23,17 +23,19 @@ class RegistrationController {
 
     const registration = await Registration.create({ ...data, price, due_date });
 
+    const { name, email } = await registration.student().fetch();
+
     await Mail.send(
       ['emails.registration'],
       {
-        student: 'jean',
+        student: name,
         plan: plan.title,
         due_date: format(due_date, "MMMM dd',' yyyy"),
         price,
       },
       (message) => {
         message.from('no_reply@gympoint.com');
-        message.to('test@a.com');
+        message.to(email);
         message.subject('GymPoint registration');
         message.embed(Helpers.publicPath('logo.png'), 'logo');
       },
