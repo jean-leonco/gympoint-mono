@@ -13,7 +13,12 @@ Route.group(() => {
   Route.resource('students.checkins', 'CheckinController').only(['index', 'store']);
   Route.resource('students.assistance-requests', 'AssistanceRequestController').only(['index', 'store']);
 
-  Route.resource('plans', 'PlanController').apiOnly();
+  Route.resource('plans', 'PlanController')
+    .apiOnly()
+    .validator(new Map([
+      [['plans.store'], ['StorePlan']],
+      [['plans.update'], ['UpdatePlan']],
+    ]));
 
   Route.resource('registrations', 'RegistrationController').apiOnly();
 
