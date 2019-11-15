@@ -6,6 +6,8 @@ const providers = [
   '@adonisjs/lucid/providers/LucidProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
   '@adonisjs/antl/providers/AntlProvider',
+  '@adonisjs/framework/providers/ViewProvider',
+  '@adonisjs/mail/providers/MailProvider',
 ];
 
 const aceProviders = [
