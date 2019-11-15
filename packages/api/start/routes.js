@@ -1,6 +1,6 @@
 const Route = use('Route');
 
-Route.post('sessions', 'SessionController.store');
+Route.post('sessions', 'SessionController.store').validator('Session');
 
 Route.group(() => {
   Route.resource('students', 'StudentController')
