@@ -1,5 +1,7 @@
-const { addMonths, parseISO } = require('date-fns');
+const { addMonths, parseISO, format } = require('date-fns');
 
+const Mail = use('Mail');
+const Helpers = use('Helpers');
 const Registration = use('App/Models/Registration');
 const Plan = use('App/Models/Plan');
 
@@ -19,9 +21,25 @@ class RegistrationController {
     const price = plan.price * plan.duration;
     const due_date = addMonths(parseISO(data.start_date), plan.duration);
 
-    const student = await Registration.create({ ...data, price, due_date });
+    const registration = await Registration.create({ ...data, price, due_date });
 
-    return student;
+    await Mail.send(
+      ['emails.registration'],
+      {
+        student: 'jean',
+        plan: plan.title,
+        due_date: format(due_date, "MMMM dd',' yyyy"),
+        price,
+      },
+      (message) => {
+        message.from('no_reply@gympoint.com');
+        message.to('test@a.com');
+        message.subject('GymPoint registration');
+        message.embed(Helpers.publicPath('logo.png'), 'logo');
+      },
+    );
+
+    return registration;
   }
 
   async show({ params, response }) {
@@ -56,7 +74,8 @@ class RegistrationController {
         price = plan.price * plan.duration;
 
         due_date = addMonths(
-          data.start_date ? parseISO(data.start_date) : registration.start_date, plan.duration,
+          data.start_date ? parseISO(data.start_date) : registration.start_date,
+          plan.duration,
         );
       }
 
