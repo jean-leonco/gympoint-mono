@@ -20,7 +20,12 @@ Route.group(() => {
       [['plans.update'], ['UpdatePlan']],
     ]));
 
-  Route.resource('registrations', 'RegistrationController').apiOnly();
+  Route.resource('registrations', 'RegistrationController')
+    .apiOnly()
+    .validator(new Map([
+      [['registrations.store'], ['StoreRegistration']],
+      [['registrations.update'], ['UpdateRegistration']],
+    ]));
 
   Route.get('assistance-requests', 'HelpRequestController.index');
   Route.post('assistance-requests/:request_id/answer', 'HelpRequestController.store');
