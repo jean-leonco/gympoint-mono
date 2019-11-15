@@ -18,13 +18,19 @@ class HelpRequestController {
 
       const assistanceRequest = await AssistanceRequest.findOrFail(request_id);
 
+      if (assistanceRequest.answer) {
+        return response.status(400).send({
+          error: 'The assistance request was answered',
+        });
+      }
+
       assistanceRequest.merge({ answer, answer_at });
 
       await assistanceRequest.save();
 
       return assistanceRequest;
     } catch (error) {
-      return response.status(404).send({
+      return response.status(400).send({
         error: 'Something went wrong, could not find the assistance request',
       });
     }

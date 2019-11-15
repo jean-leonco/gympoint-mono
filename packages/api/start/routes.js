@@ -11,7 +11,12 @@ Route.group(() => {
     ]));
 
   Route.resource('students.checkins', 'CheckinController').only(['index', 'store']);
-  Route.resource('students.assistance-requests', 'AssistanceRequestController').only(['index', 'store']);
+
+  Route.resource('students.assistance-requests', 'AssistanceRequestController')
+    .only(['index', 'store'])
+    .validator(new Map([
+      [['students.assistance-requests.store'], ['Assistance']],
+    ]));
 
   Route.resource('plans', 'PlanController')
     .apiOnly()
@@ -27,6 +32,6 @@ Route.group(() => {
       [['registrations.update'], ['UpdateRegistration']],
     ]));
 
-  Route.get('assistance-requests', 'HelpRequestController.index');
-  Route.post('assistance-requests/:request_id/answer', 'HelpRequestController.store');
+  Route.get('assistance-requests', 'AnswerController.index');
+  Route.post('assistance-requests/:request_id/answer', 'AnswerController.store').validator('Answer');
 }).middleware('auth');
