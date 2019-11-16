@@ -8,16 +8,25 @@ const providers = [
   '@adonisjs/antl/providers/AntlProvider',
   '@adonisjs/framework/providers/ViewProvider',
   '@adonisjs/mail/providers/MailProvider',
+  'adonis-kue/providers/KueProvider',
+  '@adonisjs/redis/providers/RedisProvider',
 ];
 
 const aceProviders = [
   '@adonisjs/lucid/providers/MigrationsProvider',
+  'adonis-kue/providers/CommandsProvider',
 ];
 
 const aliases = {};
 
 const commands = [];
 
+const jobs = ['App/Jobs/RegistrationMail', 'App/Jobs/AssistanceMail'];
+
 module.exports = {
-  providers, aceProviders, aliases, commands,
+  providers,
+  aceProviders,
+  aliases,
+  commands,
+  jobs,
 };

@@ -1,9 +1,10 @@
 const { addMonths, parseISO, format } = require('date-fns');
 
-const Mail = use('Mail');
-const Helpers = use('Helpers');
+const Kue = use('Kue');
+
 const Registration = use('App/Models/Registration');
 const Plan = use('App/Models/Plan');
+const Job = use('App/Jobs/RegistrationMail');
 
 class RegistrationController {
   async index({ request }) {
@@ -25,20 +26,16 @@ class RegistrationController {
 
     const { name, email } = await registration.student().fetch();
 
-    await Mail.send(
-      ['emails.registration'],
+    Kue.dispatch(
+      Job.key,
       {
         student: name,
         plan: plan.title,
         due_date: format(due_date, "MMMM dd',' yyyy"),
         price,
+        email,
       },
-      (message) => {
-        message.from('no_reply@gympoint.com');
-        message.to(email);
-        message.subject('GymPoint registration');
-        message.embed(Helpers.publicPath('logo.png'), 'logo');
-      },
+      { attempts: 3 },
     );
 
     return registration;

@@ -1,7 +1,7 @@
-const Mail = use('Mail');
-const Helpers = use('Helpers');
-const AssistanceRequest = use('App/Models/AssistanceRequest');
+const Kue = use('Kue');
 
+const AssistanceRequest = use('App/Models/AssistanceRequest');
+const Job = use('App/Jobs/AssistanceMail');
 class HelpRequestController {
   async index({ request }) {
     const { page } = request.get();
@@ -34,19 +34,15 @@ class HelpRequestController {
 
       const { name, email } = await assistanceRequest.student().fetch();
 
-      await Mail.send(
-        ['emails.assistance'],
+      Kue.dispatch(
+        Job.key,
         {
           student: name,
           question: assistanceRequest.question,
           answer: assistanceRequest.answer,
+          email,
         },
-        (message) => {
-          message.from('no_reply@gympoint.com');
-          message.to(email);
-          message.subject('Assistance request');
-          message.embed(Helpers.publicPath('logo.png'), 'logo');
-        },
+        { attempts: 3 },
       );
 
       return assistanceRequest;
