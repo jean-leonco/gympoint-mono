@@ -2,7 +2,7 @@ const Schema = use('Schema');
 
 class PlanSchema extends Schema {
   up() {
-    this.create('plans', (table) => {
+    this.create('plans', table => {
       table.increments();
       table.string('title').notNullable();
       table.integer('duration').notNullable();

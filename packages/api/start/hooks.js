@@ -16,7 +16,9 @@ hooks.before.httpServer(() => {
     let row;
 
     try {
-      row = await Database.table(table).where(column, value).first();
+      row = await Database.table(table)
+        .where(column, value)
+        .first();
     } catch (error) {
       throw message;
     }

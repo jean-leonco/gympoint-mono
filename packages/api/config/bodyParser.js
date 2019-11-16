@@ -11,21 +11,15 @@ module.exports = {
   },
 
   raw: {
-    types: [
-      'text/*',
-    ],
+    types: ['text/*'],
   },
 
   form: {
-    types: [
-      'application/x-www-form-urlencoded',
-    ],
+    types: ['application/x-www-form-urlencoded'],
   },
 
   files: {
-    types: [
-      'multipart/form-data',
-    ],
+    types: ['multipart/form-data'],
     maxSize: '20mb',
     autoProcess: true,
     processManually: [],

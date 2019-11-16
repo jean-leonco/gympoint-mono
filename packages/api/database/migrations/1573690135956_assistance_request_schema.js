@@ -2,7 +2,7 @@ const Schema = use('Schema');
 
 class AssistanceRequestSchema extends Schema {
   up() {
-    this.create('assistance_requests', (table) => {
+    this.create('assistance_requests', table => {
       table.increments();
 
       table

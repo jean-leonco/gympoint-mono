@@ -2,7 +2,7 @@ const Schema = use('Schema');
 
 class CheckinSchema extends Schema {
   up() {
-    this.create('checkins', (table) => {
+    this.create('checkins', table => {
       table.increments();
 
       table

@@ -9,7 +9,10 @@ const Job = use('App/Jobs/RegistrationMail');
 class RegistrationController {
   async index({ request }) {
     const { page } = request.get();
-    const registrations = await Registration.query().with('student').with('plan').paginate(page);
+    const registrations = await Registration.query()
+      .with('student')
+      .with('plan')
+      .paginate(page);
 
     return registrations;
   }
@@ -22,7 +25,11 @@ class RegistrationController {
     const price = plan.price * plan.duration;
     const due_date = addMonths(parseISO(data.start_date), plan.duration);
 
-    const registration = await Registration.create({ ...data, price, due_date });
+    const registration = await Registration.create({
+      ...data,
+      price,
+      due_date,
+    });
 
     const { name, email } = await registration.student().fetch();
 
@@ -35,7 +42,7 @@ class RegistrationController {
         price,
         email,
       },
-      { attempts: 3 },
+      { attempts: 3 }
     );
 
     return registration;
@@ -74,7 +81,7 @@ class RegistrationController {
 
         due_date = addMonths(
           data.start_date ? parseISO(data.start_date) : registration.start_date,
-          plan.duration,
+          plan.duration
         );
       }
 

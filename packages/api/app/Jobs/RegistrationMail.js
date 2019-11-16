@@ -10,9 +10,7 @@ class RegistrationMail {
     return 'RegistrationMail-job';
   }
 
-  async handle({
-    student, plan, due_date, price, email,
-  }) {
+  async handle({ student, plan, due_date, price, email }) {
     await Mail.send(
       ['emails.registration'],
       {
@@ -21,12 +19,12 @@ class RegistrationMail {
         due_date,
         price,
       },
-      (message) => {
+      message => {
         message.from('no_reply@gympoint.com');
         message.to(email);
         message.subject('GymPoint registration');
         message.embed(Helpers.publicPath('logo.png'), 'logo');
-      },
+      }
     );
   }
 }

@@ -4,7 +4,8 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['airbnb-base'],
+  extends: ['airbnb-base', 'prettier'],
+  plugins: ['prettier'],
   globals: {
     use: 'readonly',
     Atomics: 'readonly',
@@ -14,12 +15,13 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    'prettier/prettier': 'error',
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
     camelcase: 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'no-template-curly-in-string': 'off',
     'global-require': 'off',
-    'no-multi-assign': 'warn'
+    'no-multi-assign': 'warn',
   },
 };

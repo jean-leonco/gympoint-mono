@@ -9,7 +9,6 @@ class DatabaseSeeder {
       password: '123456',
     });
 
-
     await Plan.createMany([
       { title: 'Start', duration: 1, price: 129 },
       { title: 'Gold', duration: 3, price: 109 },

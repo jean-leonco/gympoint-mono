@@ -5,7 +5,9 @@ class AssistanceRequestController {
     const { page } = request.get();
     const { students_id } = params;
 
-    const assistanceRequests = await AssistanceRequest.query().where('student_id', students_id).paginate(page);
+    const assistanceRequests = await AssistanceRequest.query()
+      .where('student_id', students_id)
+      .paginate(page);
 
     return assistanceRequests;
   }
@@ -14,7 +16,10 @@ class AssistanceRequestController {
     const { students_id: student_id } = params;
     const question = request.input('question');
 
-    const assistanceRequest = await AssistanceRequest.create({ student_id, question });
+    const assistanceRequest = await AssistanceRequest.create({
+      student_id,
+      question,
+    });
 
     return assistanceRequest;
   }

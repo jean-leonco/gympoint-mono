@@ -9,7 +9,13 @@ class StudentController {
   }
 
   async store({ request }) {
-    const data = request.only(['name', 'email', 'birthday', 'weight', 'heigth']);
+    const data = request.only([
+      'name',
+      'email',
+      'birthday',
+      'weight',
+      'heigth',
+    ]);
 
     const student = await Student.create(data);
 
@@ -30,7 +36,13 @@ class StudentController {
 
   async update({ params, request, response }) {
     try {
-      const data = request.only(['name', 'email', 'birthday', 'weight', 'heigth']);
+      const data = request.only([
+        'name',
+        'email',
+        'birthday',
+        'weight',
+        'heigth',
+      ]);
       const student = await Student.findOrFail(params.id);
 
       student.merge(data);

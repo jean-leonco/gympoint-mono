@@ -10,18 +10,16 @@ class AssistanceMail {
     return 'AssistanceMail-job';
   }
 
-  async handle({
-    student, question, answer, email,
-  }) {
+  async handle({ student, question, answer, email }) {
     await Mail.send(
       ['emails.assistance'],
       { student, question, answer },
-      (message) => {
+      message => {
         message.from('no_reply@gympoint.com');
         message.to(email);
         message.subject('Assistance request');
         message.embed(Helpers.publicPath('logo.png'), 'logo');
-      },
+      }
     );
   }
 }

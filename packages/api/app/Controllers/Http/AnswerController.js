@@ -42,7 +42,7 @@ class HelpRequestController {
           answer: assistanceRequest.answer,
           email,
         },
-        { attempts: 3 },
+        { attempts: 3 }
       );
 
       return assistanceRequest;

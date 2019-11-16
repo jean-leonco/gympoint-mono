@@ -7,7 +7,9 @@ class CheckinController {
     const { page } = request.get();
     const { students_id } = params;
 
-    const checkins = await Checkin.query().where('student_id', students_id).paginate(page);
+    const checkins = await Checkin.query()
+      .where('student_id', students_id)
+      .paginate(page);
 
     return checkins;
   }
@@ -17,8 +19,7 @@ class CheckinController {
 
     const date = new Date();
 
-    const count = await Checkin
-      .query()
+    const count = await Checkin.query()
       .where('student_id', student_id)
       .whereBetween('created_at', [startOfISOWeek(date), endOfISOWeek(date)])
       .count('* as total');
@@ -27,7 +28,8 @@ class CheckinController {
 
     if (total >= 5) {
       return response.status(401).send({
-        error: 'The number of possible check-ins for one week is five. Please try again next week',
+        error:
+          'The number of possible check-ins for one week is five. Please try again next week',
       });
     }
 
