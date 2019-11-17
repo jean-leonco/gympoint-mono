@@ -2,8 +2,17 @@ const Student = use('App/Models/Student');
 
 class StudentController {
   async index({ request }) {
-    const { page } = request.get();
-    const students = await Student.query().paginate(page);
+    const { page, name } = request.get();
+
+    let students;
+
+    if (name) {
+      students = await Student.query()
+        .where('name', 'like', name)
+        .paginate(page);
+    } else {
+      students = await Student.query().paginate(page);
+    }
 
     return students;
   }
