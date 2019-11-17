@@ -24,7 +24,9 @@ class HelpRequestController {
 
       if (assistanceRequest.answer) {
         return response.status(400).send({
-          error: 'The assistance request was answered',
+          error: {
+            message: 'The assistance request was answered.',
+          },
         });
       }
 
@@ -48,7 +50,10 @@ class HelpRequestController {
       return assistanceRequest;
     } catch (error) {
       return response.status(400).send({
-        error: 'Something went wrong, could not find the assistance request',
+        error: {
+          message:
+            'Something went wrong, could not find the assistance request.',
+        },
       });
     }
   }

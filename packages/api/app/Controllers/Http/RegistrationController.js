@@ -57,7 +57,9 @@ class RegistrationController {
       return registration;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find registration',
+        error: {
+          message: 'Something went wrong, could not find registration.',
+        },
       });
     }
   }
@@ -91,7 +93,9 @@ class RegistrationController {
       return registration;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find registration',
+        error: {
+          message: 'Something went wrong, could not find registration.',
+        },
       });
     }
   }
@@ -105,7 +109,9 @@ class RegistrationController {
       return { message: 'Registration deleted with success' };
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find registration',
+        error: {
+          message: 'Something went wrong, could not find registration.',
+        },
       });
     }
   }

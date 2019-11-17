@@ -23,7 +23,9 @@ class PlanController {
       return plan;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find plan',
+        error: {
+          message: 'Something went wrong, could not find plan.',
+        },
       });
     }
   }
@@ -40,7 +42,9 @@ class PlanController {
       return plan;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find plan',
+        error: {
+          message: 'Something went wrong, could not find plan.',
+        },
       });
     }
   }
@@ -51,10 +55,12 @@ class PlanController {
 
       await plan.delete();
 
-      return { message: 'Plan deleted with success' };
+      return { message: 'Plan deleted with success.' };
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find plan',
+        error: {
+          message: 'Something went wrong, could not find plan.',
+        },
       });
     }
   }

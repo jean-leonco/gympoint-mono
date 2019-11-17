@@ -28,14 +28,16 @@ class CheckinController {
 
     if (total >= 5) {
       return response.status(401).send({
-        error:
-          'The number of possible check-ins for one week is five. Please try again next week',
+        error: {
+          message:
+            'The number of possible check-ins for one week is five. Please try again next week.',
+        },
       });
     }
 
     await Checkin.create({ student_id });
 
-    return { message: 'Checkin create with success' };
+    return { message: 'Checkin create with success.' };
   }
 }
 

@@ -29,7 +29,9 @@ class StudentController {
       return student;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find student',
+        error: {
+          message: 'Something went wrong, could not find student.',
+        },
       });
     }
   }
@@ -52,7 +54,9 @@ class StudentController {
       return student;
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find student',
+        error: {
+          message: 'Something went wrong, could not find student.',
+        },
       });
     }
   }
@@ -66,7 +70,9 @@ class StudentController {
       return { message: 'Student deleted with success' };
     } catch (error) {
       return response.status(error.status).send({
-        error: 'Something went wrong, could not find student',
+        error: {
+          message: 'Something went wrong, could not find student.',
+        },
       });
     }
   }
