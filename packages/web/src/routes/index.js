@@ -18,10 +18,15 @@ export default function routes() {
     <Switch>
       <Route path="/" exact component={Sign} />
 
-      <Route path="/students" component={Students} isPrivate />
-      <Route path="/plans" component={Plans} isPrivate />
-      <Route path="/registrations" component={Registrations} isPrivate />
-      <Route path="/assistance-requests" component={Assistances} isPrivate />
+      <Route path="/students" exact component={Students} isPrivate />
+      <Route path="/plans" exact component={Plans} isPrivate />
+      <Route path="/registrations" exact component={Registrations} isPrivate />
+      <Route
+        path="/assistance-requests"
+        exact
+        component={Assistances}
+        isPrivate
+      />
 
       <Route path="/students/new" component={StudentForm} isPrivate />
       <Route path="/plans/new" component={PlanForm} isPrivate />

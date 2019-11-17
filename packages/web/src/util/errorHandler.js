@@ -2,14 +2,14 @@ import { toast } from 'react-toastify';
 
 export default err => {
   if (!err.response) {
-    toast.error('Something got wrong. Could not authenticate. Try later :(');
+    toast.error('Could not connect to server. Try later :(');
     return;
   }
 
   const { data } = err.response;
 
-  if (data.error) {
-    toast.error(data.error);
+  if (data.error.message) {
+    toast.error(data.error.message);
     return;
   }
 

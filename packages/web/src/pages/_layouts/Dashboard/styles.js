@@ -26,22 +26,55 @@ export const Container = styled.div`
       color: ${colors.label};
     }
 
-    a {
-      background: ${colors.secundary};
-      color: #fff;
-      font-size: 1.4rem;
-      font-weight: bold;
-      padding: 1rem 1.6rem;
+    div {
+      display: flex;
+      flex-direction: row;
 
-      border-radius: 4px;
-      transition: background 0.2s;
+      a {
+        background: ${colors.secundary};
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: bold;
+        padding: 1rem 1.6rem;
 
-      svg {
-        margin-right: 8px;
+        border-radius: 4px;
+        transition: background 0.2s;
+
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 8px;
+        }
+
+        &:hover {
+          background: ${colors.main};
+        }
       }
 
-      &:hover {
-        background: ${colors.main};
+      div {
+        position: relative;
+        margin-left: 1.6rem;
+
+        input {
+          background: #fff;
+          color: ${colors.text};
+
+          padding: 10px 16px 10px 40px;
+
+          border: 1px solid #ddd;
+          border-radius: 4px;
+
+          &::placeholder {
+            color: #999;
+          }
+        }
+
+        svg {
+          position: absolute;
+          top: 25%;
+          left: 16px;
+        }
       }
     }
   }
