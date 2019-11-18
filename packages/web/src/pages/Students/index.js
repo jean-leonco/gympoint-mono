@@ -38,7 +38,7 @@ export default function Students() {
 
         setPage(pageNumber);
 
-        setTotalPages(Number(data.total));
+        setTotalPages(Math.ceil(data.total / 20));
       } catch (error) {
         errorHandler(error);
       }
