@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 import Dashboard from '../pages/_layouts/Dashboard';
 
+import { store } from '../store';
+
 export default function RouteWrapper({
   component: Component,
   isPrivate,
   isError,
   ...rest
 }) {
-  const signed = true;
+  const { signed } = store.getState().auth;
 
   if (!isError && !signed && isPrivate) {
     return <Redirect to="/" />;

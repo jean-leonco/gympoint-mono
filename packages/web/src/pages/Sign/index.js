@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import history from '../../services/history';
-import api from '../../services/api';
-import errorHandler from '../../util/errorHandler';
+import { signRequest } from '../../store/modules/auth/actions';
 
 import { Container, Content, SubmitButton } from './styles';
 
@@ -19,19 +18,11 @@ const schema = Yup.object().shape({
 });
 
 export default function Sign() {
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector(state => state.auth.loading);
+  const dispatch = useDispatch();
 
-  async function handleSubmit({ email, password }) {
-    try {
-      setLoading(true);
-      await api.post('/sessions', { email, password });
-      setLoading(false);
-
-      history.push('/students');
-    } catch (error) {
-      setLoading(false);
-      errorHandler(error);
-    }
+  function handleSubmit({ email, password }) {
+    dispatch(signRequest(email, password));
   }
 
   return (
