@@ -98,7 +98,7 @@ export default function Plans() {
               <span>$ {p.price}</span>
 
               <div>
-                <Link to={`/students/edit/${p.id}`}>edit</Link>
+                <Link to={`/plans/edit/${p.id}`}>edit</Link>
                 <button type="button" onClick={() => handleDelete(p.id)}>
                   delete
                 </button>
