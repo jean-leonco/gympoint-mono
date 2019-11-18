@@ -12,12 +12,12 @@ import { Table } from './styles';
 export default function Registrations() {
   const [registrations, setRegistrations] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const loadRegistrations = useCallback(
     async (pageNumber = page) => {
       try {
-        if (totalPages && pageNumber > totalPages) return;
+        if ((totalPages && pageNumber > totalPages) || totalPages === 0) return;
 
         const response = await api.get('registrations', {
           params: {
@@ -48,6 +48,8 @@ export default function Registrations() {
   }, []); //eslint-disable-line
 
   async function handleDelete(id) {
+    if (!window.confirm('Are sure?')) return;
+
     try {
       await api.delete(`registrations/${id}`);
 

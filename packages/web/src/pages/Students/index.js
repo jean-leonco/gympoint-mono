@@ -12,13 +12,13 @@ import { Table } from './styles';
 export default function Students() {
   const [students, setStudents] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [name, setName] = useState('');
 
   const loadStudents = useCallback(
     async (pageNumber = page, withName = false) => {
       try {
-        if (totalPages && pageNumber > totalPages) return;
+        if ((totalPages && pageNumber > totalPages) || totalPages === 0) return;
 
         const { data } = await api.get('students', {
           params: {
@@ -55,6 +55,8 @@ export default function Students() {
   }, [name]); //eslint-disable-line
 
   async function handleDelete(id) {
+    if (!window.confirm('Are sure?')) return;
+
     try {
       await api.delete(`/students/${id}`);
 

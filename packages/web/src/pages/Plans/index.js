@@ -11,12 +11,12 @@ import { Table } from './styles';
 export default function Plans() {
   const [plans, setPlans] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const loadPlans = useCallback(
     async (pageNumber = page) => {
       try {
-        if (totalPages && pageNumber > totalPages) return;
+        if ((totalPages && pageNumber > totalPages) || totalPages === 0) return;
 
         const { data } = await api.get('plans', {
           params: {
@@ -41,6 +41,8 @@ export default function Plans() {
   }, []); //eslint-disable-line
 
   async function handleDelete(id) {
+    if (!window.confirm('Are sure?')) return;
+
     try {
       await api.delete(`plans/${id}`);
 
