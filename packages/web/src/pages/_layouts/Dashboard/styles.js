@@ -44,7 +44,7 @@ export const Container = styled.div`
         align-items: center;
 
         svg {
-          margin-right: 8px;
+          margin-right: 0.8rem;
         }
 
         &:hover {
