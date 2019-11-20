@@ -8,12 +8,12 @@ export default err => {
 
   const { data } = err.response;
 
-  if (data.error.message) {
-    toast.error(data.error.message);
+  if (data[0]) {
+    data.map(error => toast.error(error.message));
     return;
   }
 
-  if (data[0]) {
-    data.map(error => toast.error(error.message));
+  if (data.error.message) {
+    toast.error(data.error.message);
   }
 };

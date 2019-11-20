@@ -4,23 +4,27 @@ import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
+import DatePicker from '../Form/DatePicker';
 import { FormContainer, FormContent, FormInput } from '../Form/styles';
 
 const schema = Yup.object().shape({
   name: Yup.string()
     .required('The name is required.')
-    .max('The name should not be more than 255.'),
+    .max(255, 'The name should not be more than 255.'),
   email: Yup.string()
     .email('It should be a valid email address.')
     .required('The e-mail is required.'),
   birthday: Yup.date('The birthday should be a valid date.').required(
     'The birthday is required.'
   ),
-  weight: Yup.number('The weight should contain numbers only.').required(
-    'The weight is required.'
-  ),
+  weight: Yup.number()
+    .typeError('The weight should contain numbers only.')
+    .min(40, 'The weight should not be less than 40.')
+    .required('The weight is required.'),
   heigth: Yup.number()
-    .integer('The heigth should be an integer')
+    .typeError('The heigth should contain numbers only.')
+    .integer('The heigth should be an integer.')
+    .min(100, 'The heigth should not be less than 100.')
     .required('The heigth is required.'),
 });
 
@@ -53,12 +57,12 @@ export default function StudentForm({ data, handleSubmit }) {
         <div>
           <section>
             <strong>BIRTHDAY</strong>
-            <FormInput name="birthday" type="text" />
+            <DatePicker name="birthday" maxDate={new Date()} />
           </section>
 
           <section>
             <strong>WEIGHT (kg)</strong>
-            <FormInput name="weight" type="number" />
+            <FormInput name="weight" type="number" step="0.5" />
           </section>
 
           <section>
@@ -76,7 +80,7 @@ StudentForm.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     birthday: PropTypes.oneOfType([
-      PropTypes.number,
+      PropTypes.string,
       PropTypes.instanceOf(Date),
     ]),
     weight: PropTypes.number,

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import { useField } from '@rocketseat/unform';
@@ -9,16 +9,49 @@ export default function ReactSelect({
   async,
   options,
   loadOptions,
+  setValue,
   ...rest
 }) {
   const ref = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
+  const [select, setSelect] = useState(null);
+  const [asyncOptions, setAsyncOptions] = useState(null);
 
   function parseSelectValue(selectRef) {
     const selectValue = selectRef.state.value;
 
     return selectValue ? selectValue.id : null;
   }
+
+  useEffect(() => {
+    async function loadOption() {
+      if (!defaultValue) return;
+
+      if (loadOptions) {
+        const data = await loadOptions();
+        setAsyncOptions(data);
+      }
+    }
+
+    loadOption();
+  }, [defaultValue, loadOptions]);
+
+  useEffect(() => {
+    if (asyncOptions) {
+      setSelect(asyncOptions.find(op => op.id === defaultValue));
+    } else if (options) {
+      setSelect(options.find(op => op.id === defaultValue));
+    }
+  }, [asyncOptions, defaultValue, options]);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.state.value = select;
+    }
+    if (setValue) {
+      setValue(select);
+    }
+  }, [select, setValue]);
 
   useEffect(() => {
     registerField({
@@ -32,24 +65,16 @@ export default function ReactSelect({
     });
   }, [ref.current, fieldName]); // eslint-disable-line
 
-  function getDefaultValue() {
-    if (!defaultValue) return null;
-
-    return options.filter(option => defaultValue.includes(option.id));
-  }
-
   if (async) {
     return (
       <>
         <AsyncSelect
           name={fieldName}
           loadOptions={loadOptions}
-          defaultValue={getDefaultValue()}
-          ref={ref}
           getOptionValue={option => option.id}
-          onChange={value => {
-            ref.current.state.value = value;
-          }}
+          onChange={setSelect}
+          value={select}
+          ref={ref}
           cacheOptions
           defaultOptions
           isClearable
@@ -66,9 +91,10 @@ export default function ReactSelect({
       <Select
         name={fieldName}
         options={options}
-        defaultValue={getDefaultValue()}
         ref={ref}
         getOptionValue={option => option.id}
+        onChange={setSelect}
+        value={select}
         isClearable
         {...rest}
       />
@@ -83,10 +109,12 @@ ReactSelect.propTypes = {
   async: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.object),
   loadOptions: PropTypes.func,
+  setValue: PropTypes.func,
 };
 
 ReactSelect.defaultProps = {
   async: false,
   options: [],
   loadOptions: null,
+  setValue: null,
 };

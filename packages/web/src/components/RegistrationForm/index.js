@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
-import { format, addMonths, parse } from 'date-fns';
+import { format, addMonths, parseISO } from 'date-fns';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 import errorHandler from '../../util/errorHandler';
+
+import DatePicker from '../Form/DatePicker';
 
 import {
   FormContainer,
@@ -17,10 +19,12 @@ import {
 
 const schema = Yup.object().shape({
   student_id: Yup.number()
-    .integer('The student id shoud be an integer.')
-    .required('The sudent id is required.'),
+    .integer()
+    .typeError('The student id shoud be an integer.')
+    .required('The student id is required.'),
   plan_id: Yup.number()
-    .integer('The plan id should be an integer.')
+    .integer()
+    .typeError('The plan id should be an integer.')
     .required('The plan id is required.'),
   start_date: Yup.date('The start date should be a valid date.').required(
     'The start date is required.'
@@ -33,6 +37,14 @@ export default function RegistrationForm({ data, handleSubmit }) {
   const [startDate, setStartDate] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [total, setTotal] = useState('');
+
+  useEffect(() => {
+    if (data) {
+      setPlan({ ...data.plan, label: data.plan.title });
+
+      setStartDate(parseISO(data.start_date));
+    }
+  }, [data]);
 
   useEffect(() => {
     async function LoadPlans() {
@@ -56,15 +68,7 @@ export default function RegistrationForm({ data, handleSubmit }) {
   useEffect(() => {
     if (!startDate || !plan) return;
 
-    try {
-      const parsed = addMonths(
-        parse(startDate, 'dd/MM/yyyy', new Date()),
-        plan.duration
-      );
-      setDueDate(format(parsed, "MMMM dd',' yyyy"));
-    } catch (error) {
-      setDueDate('');
-    }
+    setDueDate(format(addMonths(startDate, plan.duration), "MMMM dd',' yyyy"));
   }, [plan, startDate]);
 
   useEffect(() => {
@@ -116,6 +120,7 @@ export default function RegistrationForm({ data, handleSubmit }) {
 
       <FormContent>
         <strong>STUDENT</strong>
+
         <FormSelect
           name="student_id"
           placeholder="Search student"
@@ -130,18 +135,18 @@ export default function RegistrationForm({ data, handleSubmit }) {
             <FormSelect
               name="plan_id"
               placeholder="Select the plan"
-              value={plan}
+              setValue={setPlan}
               options={plans}
-              onChange={setPlan}
             />
           </section>
 
           <section>
             <strong>START DATE</strong>
-            <FormInput
+            <DatePicker
               name="start_date"
+              minDate={new Date()}
+              setValue={setStartDate}
               value={startDate}
-              onChange={e => setStartDate(e.target.value)}
             />
           </section>
 
@@ -162,14 +167,12 @@ export default function RegistrationForm({ data, handleSubmit }) {
 
 RegistrationForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-    birthday: PropTypes.oneOfType([
-      PropTypes.number,
+    plan: PropTypes.object,
+    student: PropTypes.object,
+    start_date: PropTypes.oneOfType([
+      PropTypes.string,
       PropTypes.instanceOf(Date),
     ]),
-    weight: PropTypes.number,
-    heigth: PropTypes.number,
   }),
   handleSubmit: PropTypes.func.isRequired,
 };

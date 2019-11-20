@@ -9,13 +9,16 @@ import { FormContainer, FormContent, FormInput } from '../Form/styles';
 const schema = Yup.object().shape({
   title: Yup.string()
     .required('The title is required.')
-    .max('The title should not be more than 255.'),
+    .max(255, 'The title should not be more than 255.'),
   duration: Yup.number()
     .integer('The duration should be an integer.')
+    .typeError('The duration should be an integer.')
+    .min(1, 'The duration should not be less than 1.')
     .required('The duration is required.'),
-  price: Yup.number('The price should contain numbers only.').required(
-    'The price is required.'
-  ),
+  price: Yup.number()
+    .typeError('The price should contain numbers only.')
+    .min(1, 'The price should not be less than 1.')
+    .required('The price is required.'),
 });
 
 export default function PlanForm({ data, handleSubmit }) {
@@ -26,6 +29,13 @@ export default function PlanForm({ data, handleSubmit }) {
   useEffect(() => {
     setTotal(Number(price) * Number(duration));
   }, [duration, price]);
+
+  useEffect(() => {
+    if (data) {
+      setDuration(data.duration);
+      setPrice(data.price);
+    }
+  }, [data]);
 
   return (
     <FormContainer schema={schema} onSubmit={handleSubmit} initialData={data}>
@@ -55,6 +65,7 @@ export default function PlanForm({ data, handleSubmit }) {
             <FormInput
               name="duration"
               type="number"
+              step="1"
               value={duration}
               onChange={e => setDuration(e.target.value)}
             />
@@ -65,6 +76,7 @@ export default function PlanForm({ data, handleSubmit }) {
             <FormInput
               name="price"
               type="number"
+              step="0.5"
               value={price}
               onChange={e => setPrice(e.target.value)}
             />

@@ -9,9 +9,14 @@ import Plans from '../pages/Plans';
 import Registrations from '../pages/Registrations';
 import Assistances from '../pages/Assistances';
 
-import StudentForm from '../components/StudentForm';
-import PlanForm from '../components/PlanForm';
-import RegistrationForm from '../components/RegistrationForm';
+import CreateStudent from '../pages/HandleStudent/CreateStudent';
+import EditStudent from '../pages/HandleStudent/EditStudent';
+
+import CreatePlan from '../pages/HandlePlan/CreatePlan';
+import EditPlan from '../pages/HandlePlan/EditPlan';
+
+import CreateRegistration from '../pages/HandleRegistration/CreateRegistration';
+import EditRegistration from '../pages/HandleRegistration/EditRegistration';
 
 export default function routes() {
   return (
@@ -28,16 +33,20 @@ export default function routes() {
         isPrivate
       />
 
-      <Route path="/students/new" component={StudentForm} isPrivate />
-      <Route path="/plans/new" component={PlanForm} isPrivate />
-      <Route path="/registrations/new" component={RegistrationForm} isPrivate />
+      <Route path="/students/new" component={CreateStudent} isPrivate />
+      <Route path="/students/edit/:id" component={EditStudent} isPrivate />
 
-      <Route path="/students/edit/:id" component={StudentForm} isPrivate />
-      <Route path="/plans/edit/:id" component={PlanForm} isPrivate />
+      <Route path="/plans/new" component={CreatePlan} isPrivate />
+      <Route path="/plans/edit/:id" component={EditPlan} isPrivate />
 
       <Route
+        path="/registrations/new"
+        component={CreateRegistration}
+        isPrivate
+      />
+      <Route
         path="/registrations/edit/:id"
-        component={RegistrationForm}
+        component={EditRegistration}
         isPrivate
       />
     </Switch>
