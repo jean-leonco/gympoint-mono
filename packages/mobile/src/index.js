@@ -6,12 +6,10 @@ import './config/ReactotronConfig';
 
 import Routes from './routes';
 
-import colors from './styles/colors';
-
 export default function index() {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor={colors.main} />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Routes />
       <FlashMessage position="bottom" floating />
     </>
