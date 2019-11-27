@@ -1,6 +1,7 @@
 const Route = use('Route');
 
 Route.post('sessions', 'SessionController.store').validator('Session');
+Route.post('Studentsessions', 'StudentSessionController.store');
 
 Route.group(() => {
   Route.resource('students', 'StudentController')
@@ -45,7 +46,7 @@ Route.group(() => {
   ]);
 
   Route.resource('students.assistance-requests', 'AssistanceRequestController')
-    .only(['index', 'store'])
+    .only(['index', 'store', 'show'])
     .validator(
       new Map([[['students.assistance-requests.store'], ['Assistance']]])
     );

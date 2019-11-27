@@ -23,6 +23,20 @@ class AssistanceRequestController {
 
     return assistanceRequest;
   }
+
+  async show({ params, response }) {
+    try {
+      const student = await AssistanceRequest.findOrFail(params.id);
+
+      return student;
+    } catch (error) {
+      return response.status(error.status).send({
+        error: {
+          message: 'Something went wrong, could not find assistance request.',
+        },
+      });
+    }
+  }
 }
 
 module.exports = AssistanceRequestController;
