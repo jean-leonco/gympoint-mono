@@ -48,10 +48,18 @@ const Requests = createStackNavigator(
         />
       ),
     },
+    headerLayoutPreset: 'center',
     defaultNavigationOptions: {
       headerTransparent: true,
       headerLeftContainerStyle: {
         marginLeft: 10,
+      },
+      headerStyle: {
+        height: 44,
+        backgroundColor: '#fff',
+      },
+      headerTitleStyle: {
+        alignSelf: 'center',
       },
     },
   }
