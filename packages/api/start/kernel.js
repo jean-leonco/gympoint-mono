@@ -7,6 +7,7 @@ const globalMiddleware = [
 
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
+  student: 'App/Middleware/Student',
 };
 
 const serverMiddleware = [

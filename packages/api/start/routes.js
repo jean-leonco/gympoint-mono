@@ -38,13 +38,15 @@ Route.group(() => {
   ).validator('Answer');
 }).middleware('auth');
 
-Route.resource('students.checkins', 'CheckinController').only([
-  'index',
-  'store',
-]);
+Route.group(() => {
+  Route.resource('students.checkins', 'CheckinController').only([
+    'index',
+    'store',
+  ]);
 
-Route.resource('students.assistance-requests', 'AssistanceRequestController')
-  .only(['index', 'store'])
-  .validator(
-    new Map([[['students.assistance-requests.store'], ['Assistance']]])
-  );
+  Route.resource('students.assistance-requests', 'AssistanceRequestController')
+    .only(['index', 'store'])
+    .validator(
+      new Map([[['students.assistance-requests.store'], ['Assistance']]])
+    );
+}).middleware('student');
