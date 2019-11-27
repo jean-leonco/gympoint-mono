@@ -8,6 +8,7 @@ class HelpRequestController {
 
     const assistanceRequests = await AssistanceRequest.query()
       .where('answer', null)
+      .with('student')
       .paginate(page);
 
     return assistanceRequests;
