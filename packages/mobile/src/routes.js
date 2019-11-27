@@ -1,3 +1,6 @@
+import React from 'react';
+import { Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -19,6 +22,32 @@ const Requests = createStackNavigator(
     NewRequest,
   },
   {
+    navigationOptions: {
+      tabBarLabel: (
+        { tintColor } //eslint-disable-line
+      ) => (
+        <Text
+          style={{
+            fontSize: 14,
+            color: tintColor,
+            marginBottom: 15,
+            textAlign: 'center',
+          }}
+        >
+          Ask for Help
+        </Text>
+      ),
+      tabBarIcon: (
+        { tintColor } //eslint-disable-line
+      ) => (
+        <Icon
+          style={{ marginTop: 15 }}
+          name="live-help"
+          size={20}
+          color={tintColor}
+        />
+      ),
+    },
     defaultNavigationOptions: {
       headerTransparent: true,
       headerLeftContainerStyle: {
@@ -40,6 +69,7 @@ const Main = createBottomTabNavigator(
       activeTintColor: colors.main,
       inactiveTintColor: colors.nav,
       style: {
+        height: 70,
         backgroundColor: '#fff',
         borderTopWidth: 0,
       },
