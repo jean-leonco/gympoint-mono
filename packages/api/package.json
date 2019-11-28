@@ -34,6 +34,7 @@
     "@adonisjs/mail": "^3.0.10",
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/validator": "^5.0.6",
+    "@adonisjs/vow": "^1.0.17",
     "adonis-kue": "^5.0.1",
     "date-fns": "^2.0.0-beta.5",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -46,7 +47,8 @@
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "sqlite3": "^4.1.0"
   },
   "autoload": {
     "App": "./app"
