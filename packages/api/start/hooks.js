@@ -1,6 +1,6 @@
 const { hooks } = require('@adonisjs/ignitor');
 
-hooks.before.httpServer(() => {
+hooks.after.providersBooted(() => {
   const Validator = use('Adonis/Addons/Validator');
   const Database = use('Database');
 
