@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test"
+    "test": "node ace test",
+    "coverage": "nyc --reporter=lcov node ace test --bail"
   },
   "license": "MIT",
   "private": true,
@@ -19,6 +20,11 @@
       "eslint --fix",
       "prettier --write",
       "git add"
+    ]
+  },
+  "nyc": {
+    "exclude": [
+      "test"
     ]
   },
   "dependencies": {
@@ -39,6 +45,7 @@
     "date-fns": "^2.0.0-beta.5",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "nyc": "^14.1.1",
     "pg": "^7.12.1"
   },
   "devDependencies": {
