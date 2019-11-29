@@ -72,7 +72,7 @@ class RegistrationController {
       let price;
       let due_date;
 
-      const plan = await Plan.find(data.plan_id);
+      const plan = await Plan.find(data.plan_id || registration.plan_id);
 
       if (data.start_date && data.start_date !== registration.start_date) {
         due_date = addMonths(parseISO(data.start_date), plan.duration);
