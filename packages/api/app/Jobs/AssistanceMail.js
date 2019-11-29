@@ -2,10 +2,12 @@ const Mail = use('Mail');
 const Helpers = use('Helpers');
 
 class AssistanceMail {
+  /* istanbul ignore next */
   static get concurrency() {
     return 4;
   }
 
+  /* istanbul ignore next */
   static get key() {
     return 'AssistanceMail-job';
   }
@@ -17,7 +19,7 @@ class AssistanceMail {
       message => {
         message.from('no_reply@gympoint.com');
         message.to(email);
-        message.subject('Assistance request');
+        message.subject('Assistance request answered');
         message.embed(Helpers.publicPath('logo.png'), 'logo');
       }
     );

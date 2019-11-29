@@ -2,10 +2,12 @@ const Mail = use('Mail');
 const Helpers = use('Helpers');
 
 class RegistrationMail {
+  /* istanbul ignore next */
   static get concurrency() {
     return 4;
   }
 
+  /* istanbul ignore next */
   static get key() {
     return 'RegistrationMail-job';
   }
