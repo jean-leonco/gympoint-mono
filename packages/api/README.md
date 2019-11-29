@@ -4,16 +4,14 @@ GymPoint-api is node application, who uses [Adonis](https://adonisjs.com/). This
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [Table of contents](#table-of-contents)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installing](#installing)
-  - [Running](#running)
-    - [Configuration](#configuration)
-    - [Server](#server)
-    - [Tests](#tests)
-  - [Debug](#debug)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+- [Running](#running)
+  - [Configuration](#configuration)
+  - [Server](#server)
+  - [Tests](#tests)
+- [Debug](#debug)
 
 ## Getting Started
 
