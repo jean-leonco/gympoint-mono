@@ -46,11 +46,11 @@ Access the project folder in your terminal and run `yarn install` or `npm instal
 
 The server comes with some features like the http server, queue for jobs and tests.
 
-## Configuration
+### Configuration
 
 First off all you need to run database migrations `adonis migration:run --seed`.
 
-## Server
+### Server
 
 Meetapp-api will need two terminal tabs to works. In one of them, run `adonis serve`. And in the other, run `adonis kue:listen`.
 
