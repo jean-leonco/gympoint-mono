@@ -17,3 +17,11 @@ Factory.blueprint('App/Models/Plan', faker => {
     price: faker.floating({ min: 40, max: 120, fixed: 2 }),
   };
 });
+
+Factory.blueprint('App/Models/AssistanceRequest', (faker, _, data) => {
+  return {
+    question: faker.paragraph(),
+    answer: data.answer,
+    answer_at: data.answer_at,
+  };
+});
