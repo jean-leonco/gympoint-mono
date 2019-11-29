@@ -28,3 +28,12 @@ test('should not sign in with invalid student', async ({ client }) => {
 
   response.assertStatus(401);
 });
+
+test('should not sign in without student_id', async ({ client }) => {
+  const response = await client
+    .post('studentSessions')
+    .send()
+    .end();
+
+  response.assertStatus(401);
+});
