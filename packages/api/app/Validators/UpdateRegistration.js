@@ -8,6 +8,7 @@ class UpdateRegistration {
   get rules() {
     return {
       plan_id: 'exists:plans,id',
+      student_id: 'exists:students,id',
       start_date: `date|after:${new Date()}`,
     };
   }

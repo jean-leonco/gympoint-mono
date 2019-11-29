@@ -9,7 +9,7 @@ class StoreStudent {
     return {
       name: 'required',
       email: 'required|email|unique:students',
-      birthday: 'required|date',
+      birthday: `required|date|before:${new Date()}`,
       weight: 'required|number',
       heigth: 'required|integer',
     };

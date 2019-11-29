@@ -66,7 +66,7 @@ class RegistrationController {
 
   async update({ params, request, response }) {
     try {
-      const data = request.only(['plan_id', 'start_date']);
+      const data = request.only(['plan_id', 'start_date', 'student_id']);
       const registration = await Registration.findOrFail(params.id);
 
       let price;

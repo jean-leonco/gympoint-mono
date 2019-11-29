@@ -10,7 +10,7 @@ class UpdateStudent {
 
     return {
       email: `email|unique:students,email,id,${id}`,
-      birthday: 'date',
+      birthday: `date|before:${new Date()}`,
       weight: 'number',
       heigth: 'integer',
     };
