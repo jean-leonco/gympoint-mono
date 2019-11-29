@@ -21,7 +21,10 @@ class CheckinController {
 
     const count = await Checkin.query()
       .where('student_id', student_id)
-      .whereBetween('created_at', [startOfISOWeek(date), endOfISOWeek(date)])
+      .whereBetween('created_at', [
+        startOfISOWeek(date).toISOString(),
+        endOfISOWeek(date).toISOString(),
+      ])
       .count('* as total');
 
     const { total } = count[0];
