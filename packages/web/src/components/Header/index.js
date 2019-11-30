@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdMenu } from 'react-icons/md';
 
+import api from '../../services/api';
+import ws from '../../services/websocket';
+
 import { logOut } from '../../store/modules/auth/actions';
 
-import { Container, Content, Menu, Link } from './styles';
+import { Container, Content, Menu, Link, Badge } from './styles';
 
 import logo from '../../assets/logo-side.svg';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState(0);
   const { name } = useSelector(state => state.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadNotifications() {
+      const { data } = await api.get('assistance-requests');
+
+      setNotifications(Number(data.total));
+    }
+
+    loadNotifications();
+  });
+
+  useEffect(() => {
+    const channel =
+      ws.getSubscription('assistance-request') ||
+      ws.subscribe('assistance-request');
+
+    channel.on('notification', ({ total }) => setNotifications(Number(total)));
+  }, []);
 
   function handleLogOut() {
     dispatch(logOut());
@@ -19,7 +41,7 @@ export default function Header() {
 
   return (
     <Container>
-      <Content>
+      <Content hasunread={notifications ? 1 : 0}>
         <aside>
           <img src={logo} alt="GymPoint" />
 
@@ -28,7 +50,7 @@ export default function Header() {
               <MdMenu size={24} color="#999" />
             </button>
 
-            <nav className={open && 'open'}>
+            <nav className={open ? 'open' : undefined}>
               <Link onClick={() => setOpen(false)} to="/students">
                 STUDENTS
               </Link>
@@ -43,6 +65,11 @@ export default function Header() {
 
               <Link onClick={() => setOpen(false)} to="/assistance-requests">
                 ASSISTANCE REQUESTS
+                {notifications && (
+                  <Badge>
+                    <span>{notifications}</span>
+                  </Badge>
+                )}
               </Link>
             </nav>
           </Menu>
@@ -54,7 +81,14 @@ export default function Header() {
 
             <Link to="/registrations">REGISTRATIONS</Link>
 
-            <Link to="/assistance-requests">ASSISTANCE REQUESTS</Link>
+            <Link to="/assistance-requests">
+              ASSISTANCE REQUESTS
+              {notifications && (
+                <Badge>
+                  <span>{notifications}</span>
+                </Badge>
+              )}
+            </Link>
           </nav>
         </aside>
 

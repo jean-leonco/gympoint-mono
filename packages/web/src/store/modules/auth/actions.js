@@ -8,12 +8,13 @@ export function signRequest(email, password) {
   };
 }
 
-export function signSuccess(token, name) {
+export function signSuccess(token, name, id) {
   return {
     type: '@auth/SIGN_SUCCESS',
     payload: {
       token,
       name,
+      id,
     },
   };
 }

@@ -28,6 +28,9 @@ export const Content = styled.div`
       margin-left: 30px;
       padding-left: 30px;
       border-left: 1px solid #ddd;
+
+      display: flex;
+      flex-direction: row;
     }
 
     @media (max-width: 820px) {
@@ -38,7 +41,7 @@ export const Content = styled.div`
     }
   }
 
-  div {
+  aside + div {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -99,7 +102,8 @@ export const Menu = styled.div`
   }
 
   @media (min-width: 821px) {
-    button {
+    button,
+    nav {
       display: none;
     }
   }
@@ -110,11 +114,34 @@ export const Link = styled(NavLink).attrs({ activeClassName: 'active' })`
   font-size: 1.5rem;
   font-weight: bold;
 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
   & + a {
     margin-left: 2rem;
   }
 
   &.active {
     color: ${colors.label};
+  }
+`;
+
+export const Badge = styled.div`
+  width: 16px;
+  height: 16px;
+  background: ${colors.secundary};
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 0 4px 4px;
+
+  span {
+    color: #fff;
+    font-size: 10px;
   }
 `;

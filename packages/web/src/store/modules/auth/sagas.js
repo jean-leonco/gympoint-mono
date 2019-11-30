@@ -5,6 +5,7 @@ import history from '../../../services/history';
 import errorHandler from '../../../util/errorHandler';
 
 import { signSuccess, signFailure } from './actions';
+import { subscribeRequest } from '../websocket/actions';
 
 export function* sign({ payload }) {
   try {
@@ -13,11 +14,12 @@ export function* sign({ payload }) {
       password: payload.password,
     });
 
-    const { token, name } = response.data;
+    const { token, name, id } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signSuccess(token, name));
+    yield put(signSuccess(token, name, id));
+    yield put(subscribeRequest());
 
     history.push('/students');
   } catch (error) {
@@ -26,13 +28,17 @@ export function* sign({ payload }) {
   }
 }
 
-export function setToken({ payload }) {
+export function* loadToken({ payload }) {
   if (!payload) return;
 
   const { token } = payload.auth;
+  const { id, name } = payload.user;
 
-  if (token) {
+  if (token && id) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(signSuccess(token, name, id));
+    yield put(subscribeRequest(id));
   }
 }
 
@@ -41,7 +47,7 @@ export function signOut() {
 }
 
 export default all([
-  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('persist/REHYDRATE', loadToken),
   takeLatest('@auth/SIGN_REQUEST', sign),
   takeLatest('@auth/SIGN_OUT', signOut),
 ]);
