@@ -41,6 +41,7 @@
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
+    "@adonisjs/websocket": "^1.0.12",
     "adonis-kue": "^5.0.1",
     "date-fns": "^2.0.0-beta.5",
     "eslint-config-airbnb-base": "^14.0.0",

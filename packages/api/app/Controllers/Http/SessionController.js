@@ -7,9 +7,9 @@ class SessionController {
 
       const { token } = await auth.attempt(email, password);
 
-      const { name } = await User.findBy('email', email);
+      const { name, id } = await User.findBy('email', email);
 
-      return { token, name };
+      return { token, name, id };
     } catch (error) {
       return response.status(401).send({
         error: {

@@ -10,6 +10,7 @@ const providers = [
   '@adonisjs/mail/providers/MailProvider',
   'adonis-kue/providers/KueProvider',
   '@adonisjs/redis/providers/RedisProvider',
+  '@adonisjs/websocket/providers/WsProvider',
 ];
 
 const aceProviders = [
