@@ -61,10 +61,7 @@ export const Table = styled.div`
       justify-content: center;
       align-items: flex-start;
 
-      span {
-        color: ${colors.text};
-        font-size: 1.6rem;
-
+      section {
         &:nth-child(1),
         &:nth-child(2) {
           width: 33%;
@@ -73,6 +70,16 @@ export const Table = styled.div`
         &:nth-child(3) {
           text-align: center;
           width: 17%;
+        }
+
+        span {
+          color: ${colors.text};
+          font-size: 1.6rem;
+        }
+
+        strong {
+          color: ${colors.label};
+          font-size: 1.6rem;
         }
       }
 
@@ -95,6 +102,63 @@ export const Table = styled.div`
           margin-left: 2rem;
           border: 0;
         }
+      }
+    }
+  }
+
+  @media (max-width: 540px) {
+    > header {
+      strong {
+        display: none;
+      }
+
+      aside {
+        width: 100%;
+      }
+    }
+
+    ul {
+      li {
+        padding-bottom: 2.6rem;
+        margin-bottom: 2.6rem;
+
+        flex-direction: column;
+
+        section {
+          &:nth-child(1),
+          &:nth-child(2),
+          &:nth-child(3) {
+            width: 100%;
+            text-align: left;
+          }
+
+          & + section {
+            margin-top: 2rem;
+          }
+
+          strong {
+            margin-right: 1.5rem;
+          }
+        }
+
+        div {
+          width: 100%;
+          margin-top: 2rem;
+          justify-content: flex-start;
+
+          a,
+          button {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 541px) {
+    ul {
+      strong {
+        display: none;
       }
     }
   }

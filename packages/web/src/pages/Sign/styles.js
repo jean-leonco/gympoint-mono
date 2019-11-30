@@ -29,6 +29,7 @@ export const Content = styled.div`
 
   background: #fff;
   padding: 5rem 3rem;
+  margin: 0 3rem;
   text-align: center;
 
   border-radius: 4px;
@@ -76,6 +77,12 @@ export const Content = styled.div`
       margin: 0.1rem 0 1rem 0.4rem;
 
       align-self: flex-start;
+    }
+  }
+
+  @media (max-width: 500px) {
+    img {
+      height: 80px;
     }
   }
 `;

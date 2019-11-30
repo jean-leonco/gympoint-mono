@@ -6,7 +6,7 @@ import colors from '../../styles/colors';
 
 export const FormContainer = styled(Form)`
   max-width: 1200px;
-  margin: 6.4rem auto;
+  margin: 6.4rem 3rem;
 
   display: flex;
   flex-direction: column;
@@ -63,6 +63,16 @@ export const FormContainer = styled(Form)`
       margin-left: 1.6rem;
     }
   }
+
+  @media (max-width: 530px) {
+    header {
+      flex-direction: column;
+
+      strong {
+        margin-bottom: 2rem;
+      }
+    }
+  }
 `;
 
 export const FormContent = styled.div`
@@ -93,6 +103,10 @@ export const FormContent = styled.div`
   > div {
     display: flex;
     flex-direction: row;
+
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
 
     section {
       width: 100%;

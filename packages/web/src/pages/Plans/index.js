@@ -63,12 +63,10 @@ export default function Plans() {
       <header>
         <strong>Managing plans</strong>
 
-        <div>
-          <Link to="/plans/new">
-            <MdAdd color="#fff" size={20} />
-            CREATE
-          </Link>
-        </div>
+        <Link to="/plans/new">
+          <MdAdd color="#fff" size={20} />
+          CREATE
+        </Link>
       </header>
 
       <Table>
@@ -93,11 +91,22 @@ export default function Plans() {
         <ul>
           {plans.map(p => (
             <li key={p.id}>
-              <span>{p.title}</span>
-              <span>
-                {p.duration} {p.duration === 1 ? 'month' : 'months'}
-              </span>
-              <span>$ {p.price}</span>
+              <section>
+                <strong>TITLE</strong>
+                <span>{p.title}</span>
+              </section>
+
+              <section>
+                <strong>DURATION</strong>
+                <span>
+                  {p.duration} {p.duration === 1 ? 'month' : 'months'}
+                </span>
+              </section>
+
+              <section>
+                <strong>VALUE per MONTH</strong>
+                <span>$ {p.price}</span>
+              </section>
 
               <div>
                 <Link to={`/plans/edit/${p.id}`}>edit</Link>

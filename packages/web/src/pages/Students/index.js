@@ -74,7 +74,7 @@ export default function Students() {
 
   return (
     <Container>
-      <header>
+      <header className="with-search">
         <strong>Managing students</strong>
 
         <div>
@@ -118,9 +118,20 @@ export default function Students() {
         <ul>
           {students.map(s => (
             <li key={s.id}>
-              <span>{s.name}</span>
-              <span>{s.email}</span>
-              <span>{s.age}</span>
+              <section>
+                <strong>NAME:</strong>
+                <span>{s.name}</span>
+              </section>
+
+              <section>
+                <strong>E-MAIL:</strong>
+                <span>{s.email}</span>
+              </section>
+
+              <section>
+                <strong>AGE:</strong>
+                <span>{s.age}</span>
+              </section>
 
               <div>
                 <Link to={`/students/edit/${s.id}`}>edit</Link>

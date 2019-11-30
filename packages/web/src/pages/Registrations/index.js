@@ -70,12 +70,10 @@ export default function Registrations() {
       <header>
         <strong>Managing registrations</strong>
 
-        <div>
-          <Link to="/registrations/new">
-            <MdAdd color="#fff" size={20} />
-            CREATE
-          </Link>
-        </div>
+        <Link to="/registrations/new">
+          <MdAdd color="#fff" size={20} />
+          CREATE
+        </Link>
       </header>
 
       <Table>
@@ -85,7 +83,6 @@ export default function Registrations() {
           <strong>START ON</strong>
           <strong>ENDS IN</strong>
           <strong>ACTIVE</strong>
-          <strong> </strong>
 
           <aside>
             <button type="button" onClick={() => handlePage(-1)}>
@@ -103,11 +100,30 @@ export default function Registrations() {
         <ul>
           {registrations.map(({ student, plan, ...r }) => (
             <li key={r.id}>
-              <span>{student.name}</span>
-              <span>{plan.title}</span>
-              <span>{r.start_date}</span>
-              <span>{r.due_date}</span>
-              <span>{r.isActive ? 'yes' : 'no'}</span>
+              <section>
+                <strong>STUDENT</strong>
+                <span>{student.name}</span>
+              </section>
+
+              <section>
+                <strong>PLAN</strong>
+                <span>{plan.title}</span>
+              </section>
+
+              <section>
+                <strong>START ON</strong>
+                <span>{r.start_date}</span>
+              </section>
+
+              <section>
+                <strong>ENDS IN</strong>
+                <span>{r.due_date}</span>
+              </section>
+
+              <section>
+                <strong>ACTIVE</strong>
+                <span>{r.isActive ? 'yes' : 'no'}</span>
+              </section>
 
               <div>
                 <Link to={`/registrations/edit/${r.id}`}>edit</Link>

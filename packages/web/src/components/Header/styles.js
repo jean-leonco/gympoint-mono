@@ -5,6 +5,7 @@ import colors from '../../styles/colors';
 export const Container = styled.div`
   background: #fff;
   padding: 0 3rem;
+  border: 1px solid #ddd;
 `;
 
 export const Content = styled.div`
@@ -23,10 +24,17 @@ export const Content = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    nav {
+    div + nav {
       margin-left: 30px;
       padding-left: 30px;
       border-left: 1px solid #ddd;
+    }
+
+    @media (max-width: 820px) {
+      img,
+      div + nav {
+        display: none;
+      }
     }
   }
 
@@ -44,6 +52,55 @@ export const Content = styled.div`
       background: none;
       color: ${colors.cancel};
       border: 0;
+    }
+  }
+`;
+
+export const Menu = styled.div`
+  perspective: 600px;
+
+  z-index: 1;
+
+  button {
+    background: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  nav {
+    width: 250px;
+    background: #fff;
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+    transition: transform 250ms, opacity 250ms;
+    transform-origin: 50% 16px;
+    will-change: transform, opacity;
+
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 2;
+
+    a + a {
+      margin: 2rem 0 0;
+    }
+  }
+
+  nav:not(.open) {
+    opacity: 0;
+    transform: scale(0.95) rotate3d(1, 0, 0, -45deg);
+  }
+
+  @media (min-width: 821px) {
+    button {
+      display: none;
     }
   }
 `;

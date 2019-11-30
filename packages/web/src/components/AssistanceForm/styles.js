@@ -25,6 +25,7 @@ export const Content = styled(Form)`
   width: 100%;
   max-width: 450px;
   background: #fff;
+  margin: 0 3rem;
   padding: 3rem 2.6rem;
 
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);

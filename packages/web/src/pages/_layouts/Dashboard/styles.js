@@ -9,11 +9,12 @@ export const Wrapper = styled.div`
 export const Container = styled.div`
   max-width: 1200px;
   margin: 6.4rem auto;
+  padding: 0 3rem;
 
   display: flex;
   flex-direction: column;
 
-  header {
+  > header {
     width: 100%;
 
     align-self: center;
@@ -26,31 +27,31 @@ export const Container = styled.div`
       color: ${colors.label};
     }
 
+    a {
+      background: ${colors.secundary};
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+      padding: 1rem 1.6rem;
+
+      border-radius: 4px;
+      transition: background 0.2s;
+
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 0.8rem;
+      }
+
+      &:hover {
+        background: ${colors.main};
+      }
+    }
+
     div {
       display: flex;
       flex-direction: row;
-
-      a {
-        background: ${colors.secundary};
-        color: #fff;
-        font-size: 1.4rem;
-        font-weight: bold;
-        padding: 1rem 1.6rem;
-
-        border-radius: 4px;
-        transition: background 0.2s;
-
-        display: flex;
-        align-items: center;
-
-        svg {
-          margin-right: 0.8rem;
-        }
-
-        &:hover {
-          background: ${colors.main};
-        }
-      }
 
       div {
         position: relative;
@@ -75,6 +76,31 @@ export const Container = styled.div`
           top: 25%;
           left: 16px;
         }
+      }
+    }
+  }
+
+  @media (max-width: 630px) {
+    > header {
+      > div {
+        width: 100%;
+        justify-content: space-between;
+
+        div {
+          width: 100%;
+
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .with-search {
+      flex-direction: column;
+
+      > strong {
+        margin-bottom: 2rem;
       }
     }
   }
