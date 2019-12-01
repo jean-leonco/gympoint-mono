@@ -1,4 +1,5 @@
 const Server = use('Server');
+const Kue = use('Kue');
 
 const globalMiddleware = [
   'Adonis/Middleware/BodyParser',
@@ -18,3 +19,5 @@ const serverMiddleware = [
 Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(serverMiddleware);
+
+Kue.listen();
