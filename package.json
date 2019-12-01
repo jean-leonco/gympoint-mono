@@ -8,15 +8,43 @@
     "nohoist": [
       "**/@adonisjs",
       "**/@adonisjs/**",
-      "react-native",
-      "react-native/**"
+      "**/adonis-kue",
+      "**/react-native",
+      "**/react-native/**",
+      "**/@react-native-community/",
+      "**/@react-native-community/**",
+      "**/react-native-vector-icons",
+      "**/react-native-reanimated"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
     ]
   },
   "scripts": {
     "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
-    "bootstrap": "lerna bootstrap --use-workspaces"
+    "bootstrap": "lerna bootstrap --use-workspaces",
+    "dev:api": "cd packages/api && adonis serve --dev",
+    "api": "yarn workspace api start",
+    "web": "yarn workspace web start",
+    "android": "yarn workspace mobile android",
+    "mobile": "yarn workspace mobile start",
+    "test:api": "cd packages/api && adonis test --bail",
+    "coverage:api": "yarn workspace api coverage",
+    "build:web": "yarn workspace web build",
+    "start": "yarn api & yarn web & yarn mobile"
   },
   "devDependencies": {
-    "lerna": "^3.19.0"
+    "husky": "^3.1.0",
+    "lerna": "^3.19.0",
+    "lint-staged": "^9.5.0"
   }
 }
