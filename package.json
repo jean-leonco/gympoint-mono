@@ -1,6 +1,21 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@adonisjs",
+      "**/@adonisjs/**",
+      "react-native",
+      "react-native/**"
+    ]
+  },
+  "scripts": {
+    "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "bootstrap": "lerna bootstrap --use-workspaces"
+  },
   "devDependencies": {
     "lerna": "^3.19.0"
   }
